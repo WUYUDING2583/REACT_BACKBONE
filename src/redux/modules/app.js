@@ -23,10 +23,8 @@ export const types = {
 
 export const actions = {
     startGetRequest: () => {
-        return (dispatch)=>{
-            dispatch({
-                type: types.START_GET_REQUEST
-            });
+        return {
+            type: types.START_GET_REQUEST
         }
     },
     finishGetRequest: () => {
@@ -72,14 +70,20 @@ export const actions = {
     },
     test: () => {
         return (dispatch) => {
+            dispatch(actions.startGetRequest());
             return get(url.test)
                 .then(result => {
+                    dispatch(actions.finishGetRequest());
                     if (!result.error) {
                         return Promise.resolve(result.data);
                     } else {
                         dispatch(actions.setError(result.error));
                         return Promise.reject(result.error);
                     }
+                }).catch(err => {
+                    dispatch(actions.finishGetRequest());
+                    dispatch(actions.setError(err));
+                    return Promise.reject(err);
                 })
         }
     }

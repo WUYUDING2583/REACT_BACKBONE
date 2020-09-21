@@ -1,18 +1,6 @@
 import React, { Component } from "react";
 import { Button } from "antd";
 
-import {
-  bindActionCreators
-} from "redux";
-import {
-  connect
-} from "react-redux";
-import {
-  actions as appActions,
-  getError,
-  getGetRequestQuantity
-} from "../../redux/modules/app";
-
 class Home extends Component {
 
   componentDidMount() {
@@ -34,18 +22,4 @@ class Home extends Component {
 }
 
 
-const mapStateToProps = (state, props) => {
-  return {
-    error: getError(state),
-    getRequestQuantity: getGetRequestQuantity(state),
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    ...bindActionCreators(appActions, dispatch),
-  };
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;

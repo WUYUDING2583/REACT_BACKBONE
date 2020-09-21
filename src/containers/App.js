@@ -6,9 +6,11 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import Home from "./Home";
 import "./App.css";
+import asyncComponent from "../utils/AsyncComponent";
+import connectRoute from "../utils/connectRoute";
 
+const AsyncHome=connectRoute(asyncComponent(()=>import("./Home")));
 
 class App extends Component {
 
@@ -17,7 +19,7 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route path={"/"} exact component={Home}/>
+          <Route path={"/"} exact component={AsyncHome}/>
         </Switch>
       </Router>
     )
